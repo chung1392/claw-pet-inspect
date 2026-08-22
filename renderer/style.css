@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+#stage {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#crab {
+  width: 91px;
+  height: 77px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 6px 4px rgba(0, 0, 0, 0.28));
+}
+
+/* ---------- idle: gentle bob, wave handled in canvas ---------- */
+#stage.idle #crab {
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ---------- running: typing, stays put ---------- */
+#stage.running #crab {
+  animation: none;
+}
+
+/* ---------- complete: jump 5 times while waving ---------- */
+#stage.complete #crab {
+  animation: jump 0.5s ease-in-out 5;
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+/* sparkles for success */
+#sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.sparkle {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0;
+  animation: sparkle-pop 0.9s ease-out forwards;
+}
+@keyframes sparkle-pop {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.1); }
+}

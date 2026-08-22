@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node C:/Users/user/claw-pet-inspect/hooks/claude-code-hook.js start"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node C:/Users/user/claw-pet-inspect/hooks/claude-code-hook.js"
+          }
+        ]
+      }
+    ]
+  }
+}
