@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+#stage {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* sprite sheet: 8 columns x 11 rows of 138x135 frames */
+#clawd {
+  width: 92px;
+  height: 76px;
+  background-image: url('clawd-sheet.png');
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.3));
+  will-change: transform, background-position;
+}
+
+/* ---------- idle: slow breathing bob ---------- */
+#stage.idle #clawd {
+  animation: bob 3.2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* ---------- running: leaning into the laptop, no bob ---------- */
+#stage.running #clawd {
+  animation: none;
+  transform: translateY(1px);
+}
+
+/* ---------- success: hop while cheering ---------- */
+#stage.success #clawd {
+  animation: hop 0.5s ease-in-out 6;
+}
+
+@keyframes hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-12px);
+  }
+  70% {
+    transform: translateY(0);
+  }
+}
+
+/* ---------- fail: slump with a shudder (red frames come from the sheet) ---------- */
+#stage.fail #clawd {
+  animation: shudder 0.32s ease-in-out 5;
+}
+
+@keyframes shudder {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+/* ---------- sleeping: barely there ---------- */
+#stage.sleeping #clawd {
+  animation: bob 5s ease-in-out infinite;
+  opacity: 0.82;
+}
+
+/* sparkles for success */
+#sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 14px;
+  opacity: 0;
+  animation: sparkle-pop 0.9s ease-out forwards;
+}
+
+@keyframes sparkle-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(1.1);
+  }
+}
